@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodePlayMusic</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="player playing">
+        <!-- Dashboard -->
+        <div class="dashboard">
+          <!-- Header -->
+          <header>
+            <h4>Now playing:</h4>
+            <h2>String 57th & 9th</h2>
+          </header>
+      
+          <!-- CD -->
+          <div class="cd">
+            <div class="cd-thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')">
+            </div>
+          </div>
+      
+          <!-- Control -->
+          <div class="control">
+            <div class="btn btn-repeat">
+              <i class="fas fa-redo"></i>
+            </div>
+            <div class="btn btn-prev">
+              <i class="fas fa-step-backward"></i>
+            </div>
+            <div class="btn btn-toggle-play">
+              <i class="fas fa-pause icon-pause"></i>
+              <i class="fas fa-play icon-play"></i>
+            </div>
+            <div class="btn btn-next">
+              <i class="fas fa-step-forward"></i>
+            </div>
+            <div class="btn btn-random">
+              <i class="fas fa-random"></i>
+            </div>
+          </div>
+      
+          <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+      
+          <audio id="audio" src=""></audio>
+        </div>
+      
+        <!-- Playlist -->
+        <div class="playlist">
+          
+        </div>
+      </div>
+      <script>
+         const $ = document.querySelector.bind(document);
+         const $$ = document.querySelectorAll.bind(document);
+         
+         const app = {
+
+            currentIndex: 0,
+
+            songs: [
+                 {
+                     name: 'Easy On Me',
+                     singer: 'adele',
+                     path: './assets/music/song1.mp3',
+                     image: './assets/img/img1.jpg'
+                 }, {
+                     name: 'One Right Now',
+                     singer: 'Post Malone, The Weeknd',
+                     path: './assets/music/song2.mp3',
+                     image: './assets/img/img2.jpg'
+                 }, {
+                     name: 'For Tonight',
+                     singer: 'Giveon',
+                     path: './assets/music/song3.mp3',
+                     image: './assets/img/img3.jpg'
+                 }, {
+                     name: 'Cold Heart',
+                     singer: 'Elton John, Dua Lipa',
+                     path: './assets/music/song4.mp3',
+                     image: './assets/img/img4.jpg'
+                 }, {
+                     name: 'STAY',
+                     singer: 'The Kid LAROI, Justin Bieber',
+                     path: './assets/music/song5.mp3',
+                     image: './assets/img/img5.jpg'
+                 }, {
+                     name: 'Someday',
+                     singer: 'OneRepublic',
+                     path: './assets/music/song6.mp3',
+                     image: './assets/img/img6.jpg'
+                 }, {
+                     name: 'Between Us',
+                     singer: 'Little Mix',
+                     path: './assets/music/song7.mp3',
+                     image: './assets/img/img7.jpg'
+                 }, {
+                     name: 'Rise',
+                     singer: 'Calum Scott',
+                     path: './assets/music/song8.mp3',
+                     image: './assets/img/img8.jpg'
+                 }, {
+                     name: 'Wrecked',
+                     singer: 'Imagine Dragons',
+                     path: './assets/music/song9.mp3',
+                     image: './assets/img/img9.jpg'
+                 }, {
+                     name: 'Say You Wont let go',
+                     singer: 'James Arthur',
+                     path: './assets/music/song10.mp3',
+                     image: './assets/img/img10.jpg'
+                 }
+             ],
+
+            render: function(){
+                const htmls = this.songs.map((song) => {
+                    return `
+                        <div class="song">
+                            <div class="thumb" 
+                                style="background-image: url('${song.image}')">
+                            </div>
+                            <div class="body">
+                                <h3 class="title">${song.name}</h3>
+                                <p class="author">${song.singer}</p>
+                            </div>
+                            <div class="option">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                        </div>
+                    `
+                })
+                $('.playlist').innerHTML = htmls.join('')
+            },
+
+            handleEvents: function() {
+                const cd = $('.cd')
+                const cdWidth  = cd.offsetWidth;
+
+                 document.onscroll = function () {
+                    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                    const newCdWidth = cdWidth - scrollTop;
+
+                    cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
+                    cd.style.opacity = newCdWidth / cdWidth;
+                 }
+            },
+            getCurrentSong: function() {
+                return this.songs[this.currentIndex];
+            },
+            start: function() {
+  
+                this.handleEvents();
+
+                console.log(this.getCurrentSong())
+
+                this.render();
+            }
+        }
+
+        app.start();
+
+      </script>
+</body>
+</html>
