@@ -354,8 +354,7 @@
             loadConfig: function() {
                 this.isRandom = this.config.isRandom;
                 this.isRepeat = this.config.isRepeat;
-                this.songVolume = this.config.volume;
-                this.currentIndex = this.config.currentIndex;
+                this.songVolume = this.config.volume
 
                 randomBtn.classList.toggle('active',this.isRandom);
                 repeatBtn.classList.toggle('active',this.isRepeat);
